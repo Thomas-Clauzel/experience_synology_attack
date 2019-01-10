@@ -12,7 +12,7 @@ date
 echo ""
 echo " ./bruteforce.sh password.txt 192.168.1.101"
 echo ""
-cat password.txt |  while read output
+cat $1 |  while read output
 do
 [[ -z "$1" ]] && { echo "Parameter 1 is empty - fichier.txt " ; exit 1; }
 [[ -z "$2" ]] && { echo "Parameter 2 is empty - ip_adress_nas " ; exit 1; }
