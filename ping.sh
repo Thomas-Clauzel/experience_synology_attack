@@ -1,6 +1,4 @@
 #!/bin/bash
-# Program name: pingall.sh
-date
 cat list.txt |  while read output
 do
     ping -c 1 "$output" > /dev/null
